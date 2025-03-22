@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "AI Job Optimizer",
+  "version": "1.0",
+  "description": "Optimize your resume + cover letter on job sites with GenAI",
+  "permissions": ["scripting", "activeTab", "storage"],
+  "host_permissions": ["<all_urls>"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.jpg"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.linkedin.com/*", "*://*.indeed.com/*"],
+      "js": ["content.js"]
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ApplyWise</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <div class="logo">
+          <i class="fas fa-briefcase"></i>
+          <h1>ApplyWise</h1>
+        </div>
+        <span class="badge">AI Powered</span>
+      </div>
+
+      <!-- Job Status Card -->
+      <div class="card" id="job-status-card">
+        <div class="card-header">
+          <i class="fas fa-search"></i>
+          <span>Current Job</span>
+        </div>
+        <div class="card-content" id="job-status">
+          <div class="skeleton-loader"></div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button id="send-to-ai" class="primary-button">
+          <i class="fas fa-magic"></i>
+          <span>Optimize Application</span>
+        </button>
+        <button id="view-dashboard" class="secondary-button">
+          <i class="fas fa-chart-line"></i>
+          <span>View Dashboard</span>
+        </button>
+      </div>
+
+      <!-- Results Section -->
+      <div class="results-container" id="result">
+        <!-- Results will be dynamically inserted here -->
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <div class="stats">
+          <div class="stat">
+            <span class="stat-value">0</span>
+            <span class="stat-label">Optimized</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">0</span>
+            <span class="stat-label">Applied</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
