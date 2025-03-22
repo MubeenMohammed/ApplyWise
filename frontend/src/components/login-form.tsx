@@ -10,12 +10,30 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useNavigate } from "react-router";
+import { useState } from "react";
+import { signIn } from "../../firebase/firebaseFunctions";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
   const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({ email: "", password: "" });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      await signIn(formData.email, formData.password);
+      navigate("/dashboard");
+    } catch (error: any) {
+      console.error("Error signing in:", error.message);
+    }
+  };
 
   return (
     <div
@@ -30,7 +48,7 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="grid gap-6">
               <div className="flex flex-col gap-4">
                 <Button
@@ -77,22 +95,27 @@ export function LoginForm({
                     type="email"
                     placeholder="m@example.com"
                     required
+                    onChange={handleChange}
+                    value={formData.email}
                   />
                 </div>
                 <div className="grid gap-3">
                   <div className="flex items-center">
                     <Label htmlFor="password">Password</Label>
-                    <a
+                    {/* <a
                       href="#"
                       className="ml-auto text-sm underline-offset-4 hover:underline"
                     >
                       Forgot your password?
-                    </a>
+                    </a> */}
                   </div>
                   <Input
                     id="password"
                     type="password"
                     required
+                    placeholder="Password"
+                    onChange={handleChange}
+                    value={formData.password}
                   />
                 </div>
                 <Button

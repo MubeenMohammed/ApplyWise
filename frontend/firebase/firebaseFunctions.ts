@@ -16,6 +16,8 @@ export async function signIn(email: string, password: string): Promise<void> {
 
 export async function signUp(email: string, password: string): Promise<void> {
   try {
+    console.log("Signing up with:", email, password);
+    console.log("Auth instance:", auth);
     await createUserWithEmailAndPassword(auth, email, password);
     console.log("User signed up successfully");
   } catch (error: any) {

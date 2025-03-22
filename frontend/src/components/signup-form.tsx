@@ -11,21 +11,23 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useNavigate } from "react-router";
 import { signUp } from "../../firebase/firebaseFunctions";
+import { useState } from "react";
 
 export function SignupForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
   const navigate = useNavigate();
+  const [formData, setFormData] = useState({ email: "", password: "" });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    const formData = new FormData(e.currentTarget);
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-
     e.preventDefault();
     try {
-      await signUp(email, password);
+      await signUp(formData.email, formData.password);
       navigate("/dashboard");
     } catch (error: any) {
       console.error("Error signing up:", error.message);
@@ -53,6 +55,8 @@ export function SignupForm({
                     id="email"
                     type="email"
                     placeholder="m@example.com"
+                    value={formData.email}
+                    onChange={handleChange}
                     required
                   />
                 </div>
@@ -63,6 +67,9 @@ export function SignupForm({
                   <Input
                     id="password"
                     type="password"
+                    placeholder="Password"
+                    value={formData.password}
+                    onChange={handleChange}
                     required
                   />
                 </div>
