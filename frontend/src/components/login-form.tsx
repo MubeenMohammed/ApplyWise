@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useNavigate } from "react-router";
 import { useState } from "react";
-import { signIn } from "../../firebase/firebaseFunctions";
+import { signIn, signInWithGoogle } from "../../firebase/firebaseFunctions";
 
 export function LoginForm({
   className,
@@ -43,17 +43,19 @@ export function LoginForm({
       <Card className="bg-white">
         <CardHeader className="text-center">
           <CardTitle className="text-xl">Welcome back</CardTitle>
-          <CardDescription>
-            Login with your Apple or Google account
-          </CardDescription>
+          <CardDescription>Login with your Google account</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit}>
             <div className="grid gap-6">
               <div className="flex flex-col gap-4">
-                <Button
+                {/* <Button
                   variant="outline"
                   className="w-full cursor-pointer"
+                  onClick={async () => {
+                    await signInWithApple();
+                    navigate("/dashboard");
+                  }}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -65,10 +67,14 @@ export function LoginForm({
                     />
                   </svg>
                   Login with Apple
-                </Button>
+                </Button> */}
                 <Button
                   variant="outline"
                   className="w-full cursor-pointer"
+                  onClick={async () => {
+                    await signInWithGoogle();
+                    navigate("/dashboard");
+                  }}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

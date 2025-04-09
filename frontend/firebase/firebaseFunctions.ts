@@ -2,6 +2,9 @@ import { auth } from "./firebaseApp";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  signInWithPopup,
+  OAuthProvider,
+  GoogleAuthProvider,
 } from "firebase/auth";
 
 export async function signIn(email: string, password: string): Promise<void> {
@@ -22,6 +25,27 @@ export async function signUp(email: string, password: string): Promise<void> {
     console.log("User signed up successfully");
   } catch (error: any) {
     console.error("Error signing up:", error.message);
+    throw new Error(error.message);
+  }
+}
+
+export async function signInWithApple(): Promise<void> {
+  try {
+    const provider = new OAuthProvider("apple.com");
+    provider.addScope("email");
+    provider.addScope("name");
+    await signInWithPopup(auth, provider);
+  } catch (error: any) {
+    console.error("Error signing in with Apple:", error.message);
+    throw new Error(error.message);
+  }
+}
+
+export async function signInWithGoogle(): Promise<void> {
+  try {
+    await signInWithPopup(auth, new GoogleAuthProvider());
+  } catch (error: any) {
+    console.error("Error signing in with Google:", error.message);
     throw new Error(error.message);
   }
 }
